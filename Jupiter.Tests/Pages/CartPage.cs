@@ -20,12 +20,14 @@ namespace Jupiter.Tests.Pages
 
         public string GetPrice(string item)
         {
-            return Driver.FindElements(_priceLabel)[this.GetIndexOf(item)].Text;
+            IList<IWebElement> priceListElems = Driver.FindElements(_priceLabel);
+            return priceListElems[this.GetIndexOf(item)].Text;
         }
 
         public string GetSubtotalPrice(string item)
         {
-            return Driver.FindElements(_subtotalPriceLabel)[this.GetIndexOf(item)].Text;
+            IList<IWebElement> subtotalPriceListElems = Driver.FindElements(_subtotalPriceLabel);
+            return subtotalPriceListElems[this.GetIndexOf(item)].Text;
         }
 
         public void UpdateQuantity(string item, string quantity)
@@ -42,8 +44,8 @@ namespace Jupiter.Tests.Pages
 
         private int GetIndexOf(string item)
         {
-            var itemList = Driver.FindElements(_itemLabel);
-            return itemList.IndexOf(itemList.Single(i => i.Text.Contains(item)));
+            IList<IWebElement> itemListElems = Driver.FindElements(_itemLabel);
+            return itemListElems.IndexOf(itemListElems.Single(i => i.Text.Contains(item)));
         }
     }
 }

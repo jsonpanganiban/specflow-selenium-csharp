@@ -15,20 +15,20 @@ namespace Jupiter.Tests.Pages
 
         public void Buy(string item)
         {
-            IList<IWebElement> productLinkList = Driver.FindElements(By.CssSelector(string.Concat(productScope, ">p>a")));
-            productLinkList[this.GetIndex(item)].Click();
+            IList<IWebElement> productLinkListElems = Driver.FindElements(By.CssSelector(string.Concat(productScope, ">p>a")));
+            productLinkListElems[this.GetIndex(item)].Click();
         }
 
         public string GetPrice(string item)
         {
-            IList<IWebElement> productPriceList = Driver.FindElements(By.CssSelector(string.Concat(productScope, ">p>span")));
-            return productPriceList[this.GetIndex(item)].Text;
+            IList<IWebElement> productPriceListElems = Driver.FindElements(By.CssSelector(string.Concat(productScope, ">p>span")));
+            return productPriceListElems[this.GetIndex(item)].Text;
         }
 
         private int GetIndex(string item)
         {
-            IList<IWebElement> productList = Driver.FindElements(By.CssSelector(productScope));
-            return productList.IndexOf(productList.Single(i => i.Text.Contains(item)));
+            IList<IWebElement> productListElems = Driver.FindElements(By.CssSelector(productScope));
+            return productListElems.IndexOf(productListElems.Single(i => i.Text.Contains(item)));
         }
     }
 }
