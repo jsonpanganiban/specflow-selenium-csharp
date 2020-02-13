@@ -17,12 +17,7 @@ namespace Jupiter.Tests.StepDefinitions
             this.homePage = homePage;
         }
 
-        [Given(@"I visit Jupiter Toys page")]
-        public void GivenINavigateToShoppingPage()
-        {
-            homePage.NavigateToJupiterToys();
-        }
-
+        [Given(@"I navigate to Shopping page")]
         [When(@"I navigate to Shopping page")]
         public void WHenINavigateToShoppingPage()
         {

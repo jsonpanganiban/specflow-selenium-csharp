@@ -1,5 +1,7 @@
 ﻿using Jupiter.Tests.Contracts;
 using OpenQA.Selenium;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -9,32 +11,30 @@ namespace Jupiter.Tests.Pages
     public class CartPage : Base, ICart, IProduct
     {
 
-        private readonly By _itemLabel = By.CssSelector("tr.cart-item.ng-scope>td:nth-child(1)");
-        private readonly By _priceLabel = By.CssSelector("tr.cart-item.ng-scope>td:nth-child(2)");
-        private readonly By _updateQuantityTextBox = By.CssSelector("tr.cart-item.ng-scope>td:nth-child(3)>input");
-        private readonly By _subtotalPriceLabel = By.CssSelector("tr.cart-item.ng-scope>td:nth-child(4)");
         private readonly By _checkoutButton = By.CssSelector("td>[href*='checkout']");
+        private Dictionary<string, IWebElement> rowItem;
+        private string productPrice;
+        private string productSubtotalPrice;
 
         public CartPage(IWebDriver Driver) : base(Driver) { }
 
-
-        public string GetPrice(string item)
+        public string GetPrice(string productItem)
         {
-            IList<IWebElement> priceListElems = Driver.FindElements(_priceLabel);
-            return priceListElems[this.GetIndexOf(item)].Text;
+            var productPrice = GetRowOf(productItem)["Price"];
+            return productPrice.Text;
         }
 
-        public string GetSubtotalPrice(string item)
+        public string GetSubtotalPrice(string productItem)
         {
-            IList<IWebElement> subtotalPriceListElems = Driver.FindElements(_subtotalPriceLabel);
-            return subtotalPriceListElems[this.GetIndexOf(item)].Text;
+            var productSubtotalPrice = GetRowOf(productItem)["Subtotal"];
+            return productSubtotalPrice.Text;
         }
-
-        public void UpdateQuantity(string item, string quantity)
+            
+        public void UpdateQuantity(string productItem, string quantity)
         {
-            var itemQuantity = Driver.FindElements(_updateQuantityTextBox)[this.GetIndexOf(item)];
-            itemQuantity.Clear();
-            itemQuantity.SendKeys(quantity);
+            var quantityTextbox = GetRowOf(productItem)["Quantity"].FindElement(By.TagName("Input"));
+            quantityTextbox.Clear();
+            quantityTextbox.SendKeys(quantity);
         }
 
         public void ProceedToCheckOut()
@@ -42,10 +42,40 @@ namespace Jupiter.Tests.Pages
             Driver.FindElement(_checkoutButton).Click();
         }
 
-        private int GetIndexOf(string item)
+        private Dictionary<string, IWebElement> GetRowOf(string productItem)
         {
-            IList<IWebElement> itemListElems = Driver.FindElements(_itemLabel);
-            return itemListElems.IndexOf(itemListElems.Single(i => i.Text.Contains(item)));
+            var rowItem = GetCartItemTable().Where(r => r["Item"].Text == productItem).FirstOrDefault();
+            return rowItem;
+        }
+
+        public List<Dictionary<string, IWebElement>> GetCartItemTable()
+        {
+            IWebElement tableElement = Driver.FindElement(By.CssSelector(".table"));
+            List<Dictionary<string, IWebElement>> productTable = new List<Dictionary<string, IWebElement>>();
+            IList<IWebElement> rowElements = tableElement.FindElements(By.TagName("tbody>tr"));
+
+            List<string> columnHeaders = new List<string>();
+            IList<IWebElement> headerElems = tableElement.FindElements(By.TagName("th"));
+
+            foreach (var elem in headerElems)
+            {
+                columnHeaders.Add(elem.Text);
+            }
+
+            foreach (IWebElement rowElement in rowElements)
+            {
+                Dictionary<string, IWebElement> row = new Dictionary<string, IWebElement>();
+
+                int columnIndex = 0;
+                IList<IWebElement> cellElements = rowElement.FindElements(By.TagName("td"));
+                foreach (var cellElem in cellElements)
+                {
+                    row.Add(columnHeaders[columnIndex], cellElem);
+                    columnIndex++;
+                }
+                productTable.Add(row);
+            }
+            return productTable;
         }
     }
 }

@@ -49,7 +49,7 @@ namespace Jupiter.Tests.Pages
         public void VerifyOrderIsAccepted()
         {
             var wait = new WebDriverWait(Driver, new TimeSpan(0, 0, timeout));
-            wait.Until(ExpectedConditions.InvisibilityOfElementLocated(By.CssSelector("")));
+            wait.Until(ExpectedConditions.InvisibilityOfElementLocated(_progressInfo));
             var successMessage = Driver.FindElement(_alertSuccessMessage);
             Assert.True(successMessage.Displayed);
             Assert.True(successMessage.Text.Contains(successText));

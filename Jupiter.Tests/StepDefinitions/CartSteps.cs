@@ -26,7 +26,7 @@ namespace Jupiter.Tests.StepDefinitions
             foreach (var item in table.Rows.Select(r => r[0]).ToArray())
             {
                 var priceInCart = cart.GetPrice(item);
-                Assert.AreEqual(priceInCart, scenarioContext[item]);
+                Assert.AreEqual(priceInCart, scenarioContext[item], $"");
             }
         }
 

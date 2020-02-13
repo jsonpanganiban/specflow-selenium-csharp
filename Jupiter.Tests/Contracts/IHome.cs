@@ -10,6 +10,5 @@ namespace Jupiter.Tests.Contracts
     {
         void NagivateToShop();
         void NavigateToCart();
-        void NavigateToJupiterToys();
     }
 }

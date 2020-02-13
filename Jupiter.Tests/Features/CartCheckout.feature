@@ -5,9 +5,8 @@
 
 @mytag
 Scenario Outline: Cart Checkout
-	Given I visit Jupiter Toys page
-	When I navigate to Shopping page
-	And I buy item
+	Given  I navigate to Shopping page
+	When I buy item
 	| Item        |
 	| Teddy Bear  |
 	| Smiley Face |

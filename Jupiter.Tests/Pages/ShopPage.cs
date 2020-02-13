@@ -8,27 +8,27 @@ namespace Jupiter.Tests.Pages
 {
     public class ShopPage : Base, IShop
     {
-
-        private const string productScope = ".product.ng-scope>div";
+        private const string productScope = "li.product";
 
         public ShopPage(IWebDriver Driver) : base(Driver) { }
 
         public void Buy(string item)
         {
-            IList<IWebElement> productLinkListElems = Driver.FindElements(By.CssSelector(string.Concat(productScope, ">p>a")));
-            productLinkListElems[this.GetIndex(item)].Click();
+            var productElement = GetItemElement(item).FindElement(By.CssSelector(".btn-success"));
+            productElement.Click();
         }
 
         public string GetPrice(string item)
         {
-            IList<IWebElement> productPriceListElems = Driver.FindElements(By.CssSelector(string.Concat(productScope, ">p>span")));
-            return productPriceListElems[this.GetIndex(item)].Text;
+            var productPrice = GetItemElement(item).FindElement(By.CssSelector(".product-price"));
+            return productPrice.Text;
         }
 
-        private int GetIndex(string item)
+        private IWebElement GetItemElement(string item)
         {
             IList<IWebElement> productListElems = Driver.FindElements(By.CssSelector(productScope));
-            return productListElems.IndexOf(productListElems.Single(i => i.Text.Contains(item)));
+            int productIndex = productListElems.IndexOf(productListElems.Single(i => i.Text.Contains(item)));
+            return productListElems[productIndex];
         }
     }
 }

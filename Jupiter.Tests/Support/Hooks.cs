@@ -59,6 +59,7 @@ namespace Jupiter.Tests.StepDefinitions
             driver = driverFactory.GetWebDriver();
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             driver.Manage().Window.Maximize();
+            driver.Navigate().GoToUrl("https://jupiter.cloud.planittesting.com/");
             //objectContainer.RegisterInstanceAs<IWebDriver>(driver);
             objectContainer.RegisterInstanceAs<IHome>(new HomePage(driver));
             objectContainer.RegisterInstanceAs<IShop>(new ShopPage(driver));
@@ -107,7 +108,8 @@ namespace Jupiter.Tests.StepDefinitions
                         break;
 
                     case TechTalk.SpecFlow.Bindings.StepDefinitionType.Then:
-                        scenario.CreateNode<Then>(ScenarioStepContext.Current.StepInfo.Text).Pass(string.Empty);
+                        driver.TakeScreenshot().SaveAsFile(ScreenshotFilePath, ScreenshotImageFormat.Png);
+                        scenario.CreateNode<Then>(ScenarioStepContext.Current.StepInfo.Text).Pass(string.Empty, mediaModel);
                         break;
                 }
             }
