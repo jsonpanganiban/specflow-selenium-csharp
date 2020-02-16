@@ -1,22 +1,21 @@
 ﻿using Jupiter.Tests.Utilities;
-using Jupiter.Tests.Contracts;
 using NUnit.Framework;
 using System;
 using System.Linq;
 using TechTalk.SpecFlow;
+using Jupiter.Tests.Pages;
 
 namespace Jupiter.Tests.StepDefinitions
 {
     [Binding]
     public class CartSteps
     {
-
-        private readonly ICart cart;
+        private CartPage cartPage;
         private readonly ScenarioContext scenarioContext;
 
-        public CartSteps(ICart cart, ScenarioContext scenarioContext)
+        public CartSteps(CartPage cartPage, ScenarioContext scenarioContext)
         {
-            this.cart = cart;
+            this.cartPage = cartPage;
             this.scenarioContext = scenarioContext;
         }
         
@@ -25,7 +24,7 @@ namespace Jupiter.Tests.StepDefinitions
         {
             foreach (var item in table.Rows.Select(r => r[0]).ToArray())
             {
-                var priceInCart = cart.GetPrice(item);
+                var priceInCart = cartPage.GetPrice(item);
                 Assert.AreEqual(priceInCart, scenarioContext[item], $"");
             }
         }
@@ -37,7 +36,7 @@ namespace Jupiter.Tests.StepDefinitions
             foreach (var item in table.Rows)
             {
                 scenarioContext[item[0]] = item[1];
-                cart.UpdateQuantity(item[0], item[1]);
+                cartPage.UpdateQuantity(item[0], item[1]);
             }
         }
 
@@ -46,10 +45,10 @@ namespace Jupiter.Tests.StepDefinitions
         {
             foreach (var item in table.Rows.Select(r => r[0]).ToArray())
             {
-                var priceItem = cart.GetPrice(item);
+                var priceItem = cartPage.GetPrice(item);
                 var priceItemDbl = Convert.ToDouble(StringHelper.RemoveCurrency(priceItem));
                 var priceItemTotal = priceItemDbl * Convert.ToDouble(scenarioContext[item]);
-                string itemSubtotal = cart.GetSubtotalPrice(item);
+                string itemSubtotal = cartPage.GetSubtotalPrice(item);
                 Assert.AreEqual(StringHelper.RemoveCurrency(itemSubtotal), priceItemTotal.ToString());
             }
         }
@@ -57,7 +56,7 @@ namespace Jupiter.Tests.StepDefinitions
         [Given(@"I proceed to check out")]
         public void WhenIProceedToCheckOut()
         {
-            cart.ProceedToCheckOut();
+            cartPage.ProceedToCheckOut();
         }
     }
 }

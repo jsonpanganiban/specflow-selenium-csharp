@@ -1,8 +1,4 @@
-﻿using Jupiter.Tests.Contracts;
-using Jupiter.Tests.Pages;
-using NUnit.Framework;
-using OpenQA.Selenium;
-using System;
+﻿using Jupiter.Tests.Pages;
 using TechTalk.SpecFlow;
 
 namespace Jupiter.Tests.StepDefinitions
@@ -15,6 +11,12 @@ namespace Jupiter.Tests.StepDefinitions
         public HomeSteps(HomePage homePage)
         {
             this.homePage = homePage;
+        }
+
+        [Given(@"I navigate to Login")]
+        public void Login()
+        {
+            homePage.NavigateToLogin();
         }
 
         [Given(@"I navigate to Shopping page")]

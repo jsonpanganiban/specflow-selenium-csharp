@@ -1,17 +1,20 @@
-﻿using BoDi;
-using Jupiter.Tests.Contracts;
-using OpenQA.Selenium;
-using System.Linq;
+﻿using OpenQA.Selenium;
 
 namespace Jupiter.Tests.Pages
 {
-    public class HomePage : Base, IHome
+    public class HomePage : Base
     {
 
-        private readonly By shopLink = By.CssSelector("#nav-shop>a");
-        private readonly By cartLink = By.CssSelector("#nav-cart>a");
+        private readonly By shopLink = By.CssSelector("#nav-shop");
+        private readonly By cartLink = By.CssSelector("#nav-cart");
+        private readonly By loginLink = By.CssSelector("#nav-login");
 
         public HomePage(IWebDriver driver) : base(driver) { }
+
+        public void NavigateToLogin()
+        {
+            Driver.FindElement(loginLink).Click();
+        }
 
         public void NagivateToShop()
         {

@@ -1,14 +1,10 @@
-﻿using Jupiter.Tests.Contracts;
-using OpenQA.Selenium;
-using System;
-using System.Collections;
+﻿using OpenQA.Selenium;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace Jupiter.Tests.Pages
 {
-    public class CartPage : Base, ICart, IProduct
+    public class CartPage : Base
     {
 
         private readonly By _checkoutButton = By.CssSelector("td>[href*='checkout']");

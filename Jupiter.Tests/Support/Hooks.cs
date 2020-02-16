@@ -2,7 +2,6 @@
 using AventStack.ExtentReports.Gherkin.Model;
 using AventStack.ExtentReports.Reporter;
 using BoDi;
-using Jupiter.Tests.Contracts;
 using Jupiter.Tests.Factories;
 using Jupiter.Tests.Pages;
 using OpenQA.Selenium;
@@ -60,11 +59,11 @@ namespace Jupiter.Tests.StepDefinitions
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             driver.Manage().Window.Maximize();
             driver.Navigate().GoToUrl("https://jupiter.cloud.planittesting.com/");
-            //objectContainer.RegisterInstanceAs<IWebDriver>(driver);
-            objectContainer.RegisterInstanceAs<IHome>(new HomePage(driver));
-            objectContainer.RegisterInstanceAs<IShop>(new ShopPage(driver));
-            objectContainer.RegisterInstanceAs<ICart>(new CartPage(driver));
-            objectContainer.RegisterInstanceAs<ICheckout>(new CheckoutPage(driver));
+            objectContainer.RegisterInstanceAs(new HomePage(driver));
+            objectContainer.RegisterInstanceAs(new LoginPage(driver));
+            objectContainer.RegisterInstanceAs(new ShopPage(driver));
+            objectContainer.RegisterInstanceAs(new CartPage(driver));
+            objectContainer.RegisterInstanceAs(new CheckoutPage(driver));
 
             scenario = feature.CreateNode<Scenario>(scenarioContext.ScenarioInfo.Title);
             scenario.AssignCategory(scenarioContext.ScenarioInfo.Tags);

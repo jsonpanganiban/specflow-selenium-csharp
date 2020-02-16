@@ -1,12 +1,10 @@
-﻿using Jupiter.Tests.Contracts;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
+﻿using OpenQA.Selenium;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Jupiter.Tests.Pages
 {
-    public class ShopPage : Base, IShop
+    public class ShopPage : Base
     {
         private const string productScope = "li.product";
 

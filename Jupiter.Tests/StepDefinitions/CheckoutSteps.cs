@@ -7,31 +7,31 @@ namespace Jupiter.Tests.StepDefinitions
     [Binding]
     public class CheckoutSteps
     {
-        private ICheckout checkout;
+        private CheckoutPage checkoutPage;
 
-        public CheckoutSteps(ICheckout checkout)
+        public CheckoutSteps(CheckoutPage checkoutPage)
         {
-            this.checkout = checkout;
+            this.checkoutPage = checkoutPage;
         }
 
         [When(@"I fill out delivery and payment details")]
         public void WHenIfillOutDeliveryAndPaymentDetails(Table table)
         {
             var dictionary = TableHelpersExtension.ConvertToDictionary(table);
-            checkout.FillOutDeliveryDetails(dictionary["Forename"], dictionary["Email"], dictionary["Address"]);
-            checkout.FillOutPaymentDetails(dictionary["Card Type"], dictionary["Card Number"]);
+            checkoutPage.FillOutDeliveryDetails(dictionary["Forename"], dictionary["Email"], dictionary["Address"]);
+            checkoutPage.FillOutPaymentDetails(dictionary["Card Type"], dictionary["Card Number"]);
         }
 
         [When(@"I submit order")]
         public void WhenIsubmitOrder()
         {
-            checkout.SubmitOrder();
+            checkoutPage.SubmitOrder();
         }
 
         [Then(@"Success message should be displayed")]
         public void SuccessMessageShouldBeDisplayed()
         {
-            checkout.VerifyOrderIsAccepted();
+            checkoutPage.VerifyOrderIsAccepted();
         }
     }
 }

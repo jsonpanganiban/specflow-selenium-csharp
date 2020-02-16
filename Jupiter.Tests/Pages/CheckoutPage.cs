@@ -10,7 +10,7 @@ using OpenQA.Selenium.Support.UI;
 
 namespace Jupiter.Tests.Pages
 {
-    public class CheckoutPage : Base, ICheckout
+    public class CheckoutPage : Base
     {
 
         private readonly By _alertSuccessMessage = By.CssSelector("div.alert.alert-success");

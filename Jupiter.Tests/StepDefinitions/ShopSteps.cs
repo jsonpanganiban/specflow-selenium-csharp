@@ -1,5 +1,4 @@
-﻿using Jupiter.Tests.Contracts;
-using OpenQA.Selenium;
+﻿using Jupiter.Tests.Pages;
 using System;
 using System.Linq;
 using TechTalk.SpecFlow;
@@ -9,12 +8,12 @@ namespace Jupiter.Tests.StepDefinitions
     [Binding]
     public class ShopSteps
     {
-        private readonly IShop shop;
+        private ShopPage shopPage;
         private readonly ScenarioContext scenarioContext;
 
-        public ShopSteps(IShop shop, ScenarioContext scenarioContext)
+        public ShopSteps(ShopPage shopPage, ScenarioContext scenarioContext)
         {
-            this.shop = shop;
+            this.shopPage = shopPage;
             this.scenarioContext = scenarioContext;
         }
 
@@ -23,7 +22,7 @@ namespace Jupiter.Tests.StepDefinitions
         {
             foreach (var item in table.Rows.Select(r => r[0]).ToArray())
             {
-                scenarioContext[item] = shop.GetPrice(item);
+                scenarioContext[item] = shopPage.GetPrice(item);
             }
         }
 
@@ -32,7 +31,7 @@ namespace Jupiter.Tests.StepDefinitions
         {
             foreach (var item in table.Rows.Select(r => r[0]).ToArray())
             {
-                shop.Buy(item);
+                shopPage.Buy(item);
             }
         }
     }
