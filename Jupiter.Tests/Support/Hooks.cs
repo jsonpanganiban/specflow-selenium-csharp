@@ -2,32 +2,32 @@
 using AventStack.ExtentReports.Gherkin.Model;
 using AventStack.ExtentReports.Reporter;
 using BoDi;
-using Jupiter.Tests.Factories;
+using Jupiter.Framework.Configuration;
+using Jupiter.Framework.Factories;
 using Jupiter.Tests.Pages;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.Extensions;
 using System;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using TechTalk.SpecFlow;
 
-namespace Jupiter.Tests.StepDefinitions
+namespace Jupiter.Tests.Support
 {
     [Binding]
     public class Hooks
     {
         private static IWebDriver driver;
-        private static DriverFactory driverFactory;
         private readonly IObjectContainer objectContainer;
 
         private static ExtentTest feature;
         private static ExtentTest scenario;
-        private static ExtentReports extent;
+        private static AventStack.ExtentReports.ExtentReports extent;
 
-        private static readonly string reportDir = AppDomain.CurrentDomain.BaseDirectory.Replace("\\bin\\Debug\\net472\\", "");
+        private static readonly string actualPath = System.Reflection.Assembly.GetCallingAssembly().CodeBase;
+        private static readonly string reportDir = new Uri(actualPath.Substring(0, actualPath.LastIndexOf("bin"))).LocalPath;
         private static readonly string reportFile = string.Concat(reportDir, "\\TestResults\\Report\\ExtentReport.html");
+        //private static readonly Browser BrowserType = Config.Instance.Browser;
+
 
         public Hooks(IObjectContainer objectContainer)
         {
@@ -39,11 +39,12 @@ namespace Jupiter.Tests.StepDefinitions
         {
             Directory.CreateDirectory(string.Concat(reportDir, Path.Combine("\\TestResults\\Report")));
             Directory.CreateDirectory(string.Concat(reportDir, Path.Combine("\\TestResults\\Img")));
-            driverFactory = new DriverFactory();
             var reporter = new ExtentHtmlReporter(reportFile);
             reporter.Config.Theme = AventStack.ExtentReports.Reporter.Configuration.Theme.Dark;
-            extent = new ExtentReports();
+            extent = new AventStack.ExtentReports.ExtentReports();
             extent.AttachReporter(reporter);
+
+            ConfigReader.SetConfig();
         }
 
         [BeforeFeature]
@@ -55,10 +56,12 @@ namespace Jupiter.Tests.StepDefinitions
         [BeforeScenario]
         public void BeforeScenario(ScenarioContext scenarioContext)
         {
-            driver = driverFactory.GetWebDriver();
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+            driver = DriverFactory.GetWebDriver(Config.Instance.Browser);
+            driver.Manage().Cookies.DeleteAllCookies();
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(15);
             driver.Manage().Window.Maximize();
-            driver.Navigate().GoToUrl("https://jupiter.cloud.planittesting.com/");
+            driver.Navigate().GoToUrl(Config.Instance.Url);
+
             objectContainer.RegisterInstanceAs(new HomePage(driver));
             objectContainer.RegisterInstanceAs(new LoginPage(driver));
             objectContainer.RegisterInstanceAs(new ShopPage(driver));
@@ -95,7 +98,6 @@ namespace Jupiter.Tests.StepDefinitions
             }
             else
             {
-                //driver.TakeScreenshot().SaveAsFile(ScreenshotFilePath, ScreenshotImageFormat.Png);
                 switch (ScenarioStepContext.Current.StepInfo.StepDefinitionType)
                 {
                     case TechTalk.SpecFlow.Bindings.StepDefinitionType.Given:

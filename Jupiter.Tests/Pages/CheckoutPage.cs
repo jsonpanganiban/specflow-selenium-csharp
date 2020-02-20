@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BoDi;
+﻿using Jupiter.Framework.Base;
+using Jupiter.Framework.Configuration;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using System;
 
 namespace Jupiter.Tests.Pages
 {
-    public class CheckoutPage : Base
+    public class CheckoutPage : BasePage
     {
-
         private readonly By _alertSuccessMessage = By.CssSelector("div.alert.alert-success");
         private readonly By _forenameTextBox = By.CssSelector("[name='forename']");
         private readonly By _emailTextBox = By.CssSelector("[name='email']");
@@ -21,11 +17,11 @@ namespace Jupiter.Tests.Pages
         private readonly By _cardTextBox = By.CssSelector("[name='card']");
         private readonly By _submitButton = By.CssSelector("#checkout-submit-btn");
         private readonly By _progressInfo = By.CssSelector(".progress.progress-info.wait");
-        private readonly string successText = "your order has been accepted. Your order nuumber is";
-        
-        private int timeout = 30;
+        private const string successText = "your order has been accepted. Your order nuumber is";
 
-        public CheckoutPage(IWebDriver driver) : base(driver) { }
+        public CheckoutPage(IWebDriver driver) : base(driver)
+        {
+        }
 
         public void FillOutDeliveryDetails(string forename, string email, string address)
         {
@@ -46,13 +42,11 @@ namespace Jupiter.Tests.Pages
             Driver.FindElement(_submitButton).Click();
         }
 
-        public void VerifyOrderIsAccepted()
+        public void VerifyOrderIsAccepted(string forename)
         {
-            var wait = new WebDriverWait(Driver, new TimeSpan(0, 0, timeout));
-            wait.Until(ExpectedConditions.InvisibilityOfElementLocated(_progressInfo));
-            var successMessage = Driver.FindElement(_alertSuccessMessage);
-            Assert.True(successMessage.Displayed);
-            Assert.True(successMessage.Text.Contains(successText));
+            var wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(Config.Instance.Timeout));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.InvisibilityOfElementLocated(_progressInfo));
+            Assert.True(Driver.FindElement(_alertSuccessMessage).Text.Contains($"Thanks {forename}, {successText}"));
         }
     }
 }

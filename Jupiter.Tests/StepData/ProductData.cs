@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Jupiter.Tests.StepDefinitions
 {
     public class ProductData
     {
-        public string Item;
-        public string Price;
+        public string Item { get; set; }
+        public string Price { get; set; }
+        public string Quantity { get; set; }
 
     }
 }

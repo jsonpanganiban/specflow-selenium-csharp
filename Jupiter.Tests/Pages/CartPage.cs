@@ -1,34 +1,32 @@
-﻿using OpenQA.Selenium;
+﻿using Jupiter.Framework.Base;
+using OpenQA.Selenium;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Jupiter.Tests.Pages
 {
-    public class CartPage : Base
+    public class CartPage : BasePage
     {
+        public static string ItemColumn = "Item";
+        public static string PriceColumn = "Price";
+        public static string QuantityColumn = "Quantity";
+        public static string SubtotalColumn = "Subtotal";
 
         private readonly By _checkoutButton = By.CssSelector("td>[href*='checkout']");
-        private Dictionary<string, IWebElement> rowItem;
-        private string productPrice;
-        private string productSubtotalPrice;
 
-        public CartPage(IWebDriver Driver) : base(Driver) { }
-
-        public string GetPrice(string productItem)
+        public CartPage(IWebDriver driver) : base(driver)
         {
-            var productPrice = GetRowOf(productItem)["Price"];
-            return productPrice.Text;
         }
 
-        public string GetSubtotalPrice(string productItem)
+        public string GetValueBasedOnColumnName(string rowValue, string referenceColumn, string returnColumn)
         {
-            var productSubtotalPrice = GetRowOf(productItem)["Subtotal"];
-            return productSubtotalPrice.Text;
+            var itemValue = GetRowOf(rowValue, referenceColumn)[returnColumn];
+            return itemValue.Text;
         }
-            
+
         public void UpdateQuantity(string productItem, string quantity)
         {
-            var quantityTextbox = GetRowOf(productItem)["Quantity"].FindElement(By.TagName("Input"));
+            var quantityTextbox = GetRowOf(productItem, ItemColumn)[QuantityColumn].FindElement(By.TagName("Input"));
             quantityTextbox.Clear();
             quantityTextbox.SendKeys(quantity);
         }
@@ -38,9 +36,9 @@ namespace Jupiter.Tests.Pages
             Driver.FindElement(_checkoutButton).Click();
         }
 
-        private Dictionary<string, IWebElement> GetRowOf(string productItem)
+        private Dictionary<string, IWebElement> GetRowOf(string rowValue, string referenceColumn)
         {
-            var rowItem = GetCartItemTable().Where(r => r["Item"].Text == productItem).FirstOrDefault();
+            var rowItem = GetCartItemTable().Where(r => r[referenceColumn].Text == rowValue).FirstOrDefault();
             return rowItem;
         }
 
@@ -50,20 +48,15 @@ namespace Jupiter.Tests.Pages
             List<Dictionary<string, IWebElement>> productTable = new List<Dictionary<string, IWebElement>>();
             IList<IWebElement> rowElements = tableElement.FindElements(By.TagName("tbody>tr"));
 
-            List<string> columnHeaders = new List<string>();
             IList<IWebElement> headerElems = tableElement.FindElements(By.TagName("th"));
-
-            foreach (var elem in headerElems)
-            {
-                columnHeaders.Add(elem.Text);
-            }
+            List<string> columnHeaders = headerElems.Select(e => e.Text).ToList();
 
             foreach (IWebElement rowElement in rowElements)
             {
                 Dictionary<string, IWebElement> row = new Dictionary<string, IWebElement>();
+                IList<IWebElement> cellElements = rowElement.FindElements(By.TagName("td"));
 
                 int columnIndex = 0;
-                IList<IWebElement> cellElements = rowElement.FindElements(By.TagName("td"));
                 foreach (var cellElem in cellElements)
                 {
                     row.Add(columnHeaders[columnIndex], cellElem);

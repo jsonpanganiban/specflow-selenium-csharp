@@ -161,30 +161,24 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Given("I proceed to check out", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
                 TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
-                            "Field",
-                            "Value"});
-                table6.AddRow(new string[] {
                             "Forename",
-                            "Jayson"});
-                table6.AddRow(new string[] {
                             "Email",
-                            "jpanganiban@planittesting.com"});
-                table6.AddRow(new string[] {
                             "Address",
-                            "St Kilda"});
-                table6.AddRow(new string[] {
                             "Card Type",
-                            "Visa"});
+                            "Card Number"});
                 table6.AddRow(new string[] {
-                            "Card Number",
+                            "Jayson",
+                            "jpanganiban@planittesting.com",
+                            "St Kilda",
+                            "Visa",
                             "1234 9876 1234 9876"});
 #line 33
  testRunner.When("I fill out delivery and payment details", ((string)(null)), table6, "When ");
 #line hidden
-#line 40
+#line 37
  testRunner.And("I submit order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 41
+#line 38
  testRunner.Then("Success message should be displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }

@@ -1,36 +1,31 @@
 ﻿using Jupiter.Tests.Pages;
-using Jupiter.Tests.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TechTalk.SpecFlow;
+using TechTalk.SpecFlow.Assist;
 
 namespace Jupiter.Tests.StepDefinitions
 {
     [Binding]
     public class LoginSteps
     {
-        private LoginPage loginPage;
+        private readonly LoginPage _loginPage;
 
         public LoginSteps(LoginPage loginPage)
         {
-            this.loginPage = loginPage;
+            _loginPage = loginPage;
         }
 
         [When(@"I enter invalid credentials")]
         [When(@"I enter valid credentials")]
         public void WhenIEnterCredentials(Table loginTable)
         {
-            var loginDict = TableHelpersExtension.ConvertToDictionary(loginTable);
-            loginPage.Login(loginDict["Username"], loginDict["Password"]);
+            var loginData = loginTable.CreateInstance<LoginData>();
+            _loginPage.Login(loginData.Username, loginData.Password);
         }
 
         [Then(@"Message (.*) should be displayed")]
         public void ThenFailureMessageShouldBeDisplayed(string message)
         {
-            loginPage.ValidateInvalidLogin(message);
+            _loginPage.ValidateInvalidLogin(message);
         }
     }
 }

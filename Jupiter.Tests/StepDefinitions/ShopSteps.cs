@@ -1,6 +1,5 @@
-﻿using Jupiter.Tests.Pages;
-using System;
-using System.Linq;
+﻿using Jupiter.Framework.Extensions;
+using Jupiter.Tests.Pages;
 using TechTalk.SpecFlow;
 
 namespace Jupiter.Tests.StepDefinitions
@@ -8,30 +7,30 @@ namespace Jupiter.Tests.StepDefinitions
     [Binding]
     public class ShopSteps
     {
-        private ShopPage shopPage;
-        private readonly ScenarioContext scenarioContext;
+        private readonly ShopPage _shopPage;
+        private readonly ScenarioContext _scenarioContext;
 
         public ShopSteps(ShopPage shopPage, ScenarioContext scenarioContext)
         {
-            this.shopPage = shopPage;
-            this.scenarioContext = scenarioContext;
+            _shopPage = shopPage;
+            _scenarioContext = scenarioContext;
         }
 
         [When(@"I capture item price")]
         public void GetTheItemPrice(Table table)
         {
-            foreach (var item in table.Rows.Select(r => r[0]).ToArray())
+            foreach (var item in TableExtensions.GetFirstColumnValues<string>(table))
             {
-                scenarioContext[item] = shopPage.GetPrice(item);
+                _scenarioContext.SetContextKey(item, _shopPage.GetPrice(item));
             }
         }
 
         [When("I buy item")]
         public void WhenISelectItemToCart(Table table)
         {
-            foreach (var item in table.Rows.Select(r => r[0]).ToArray())
+            foreach (var item in TableExtensions.GetFirstColumnValues<string>(table))
             {
-                shopPage.Buy(item);
+                _shopPage.Buy(item);
             }
         }
     }

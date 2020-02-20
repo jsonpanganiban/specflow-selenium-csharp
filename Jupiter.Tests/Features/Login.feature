@@ -1,4 +1,4 @@
-﻿Feature: LoginFailure
+﻿Feature: Login
 	In order to avoid silly mistakes
 	As a math idiot
 	I want to be told the sum of two numbers
@@ -7,8 +7,7 @@
 Scenario: Invalid Login
 	Given I navigate to Login
 	When I enter invalid credentials
-	| Field    | Value   |
-	| Username | adsad   |
-	| Password | qweqwew | 
+	| Username		| Password |
+	| trtrtttdadsad | qweqwew  | 
 
 	Then Message Your login details are incorrect should be displayed

@@ -1,37 +1,40 @@
-﻿using Jupiter.Tests.Utilities;
-using Jupiter.Tests.Pages;
+﻿using Jupiter.Tests.Pages;
 using TechTalk.SpecFlow;
+using TechTalk.SpecFlow.Assist;
 
 namespace Jupiter.Tests.StepDefinitions
 {
     [Binding]
     public class CheckoutSteps
     {
-        private CheckoutPage checkoutPage;
+        private readonly CheckoutPage _checkoutPage;
+        private readonly PaymentData _paymentData;
 
-        public CheckoutSteps(CheckoutPage checkoutPage)
+        public CheckoutSteps(CheckoutPage checkoutPage, PaymentData paymentData)
         {
-            this.checkoutPage = checkoutPage;
+            _checkoutPage = checkoutPage;
+            _paymentData = paymentData;
         }
 
         [When(@"I fill out delivery and payment details")]
         public void WHenIfillOutDeliveryAndPaymentDetails(Table table)
         {
-            var dictionary = TableHelpersExtension.ConvertToDictionary(table);
-            checkoutPage.FillOutDeliveryDetails(dictionary["Forename"], dictionary["Email"], dictionary["Address"]);
-            checkoutPage.FillOutPaymentDetails(dictionary["Card Type"], dictionary["Card Number"]);
+            var data = table.CreateInstance<PaymentData>();
+            _checkoutPage.FillOutDeliveryDetails(data.Forename, data.Email, data.Address);
+            _checkoutPage.FillOutPaymentDetails(data.CardType, data.CardNumber);
+            _paymentData.Forename = data.Forename;
         }
 
         [When(@"I submit order")]
         public void WhenIsubmitOrder()
         {
-            checkoutPage.SubmitOrder();
+            _checkoutPage.SubmitOrder();
         }
 
         [Then(@"Success message should be displayed")]
         public void SuccessMessageShouldBeDisplayed()
         {
-            checkoutPage.VerifyOrderIsAccepted();
+            _checkoutPage.VerifyOrderIsAccepted(_paymentData.Forename);
         }
     }
 }

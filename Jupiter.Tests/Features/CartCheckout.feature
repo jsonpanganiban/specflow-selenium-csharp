@@ -31,11 +31,8 @@ Scenario Outline: Cart Checkout
 
 	Given I proceed to check out
 	When I fill out delivery and payment details
-	| Field       | Value                         |
-	| Forename    | Jayson                        |
-	| Email       | jpanganiban@planittesting.com |
-	| Address     | St Kilda                      |
-	| Card Type	  | Visa                          |
-	| Card Number | 1234 9876 1234 9876           |
+	| Forename | Email                         | Address  | Card Type | Card Number         |
+	| Jayson   | jpanganiban@planittesting.com | St Kilda | Visa      | 1234 9876 1234 9876 |
+	
 	And I submit order
 	Then Success message should be displayed

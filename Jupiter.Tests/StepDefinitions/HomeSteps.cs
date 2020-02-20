@@ -6,30 +6,30 @@ namespace Jupiter.Tests.StepDefinitions
     [Binding]
     public class HomeSteps
     {
-        private HomePage homePage;
+        private readonly HomePage _homePage;
 
         public HomeSteps(HomePage homePage)
         {
-            this.homePage = homePage;
+            _homePage = homePage;
         }
 
         [Given(@"I navigate to Login")]
         public void Login()
         {
-            homePage.NavigateToLogin();
+            _homePage.NavigateToLogin();
         }
 
         [Given(@"I navigate to Shopping page")]
         [When(@"I navigate to Shopping page")]
         public void WHenINavigateToShoppingPage()
         {
-            homePage.NagivateToShop();
+            _homePage.NagivateToShop();
         }
 
         [When(@"I navigate to Cart page")]
         public void WhenINavigateToCartPage()
         {
-            homePage.NavigateToCart();
+            _homePage.NavigateToCart();
         }
     }
 }

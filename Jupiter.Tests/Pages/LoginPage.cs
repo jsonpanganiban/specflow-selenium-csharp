@@ -1,15 +1,15 @@
-﻿using NUnit.Framework;
+﻿using Jupiter.Framework.Base;
+using NUnit.Framework;
 using OpenQA.Selenium;
 
 namespace Jupiter.Tests.Pages
 {
-    public class LoginPage : Base
+    public class LoginPage : BasePage
     {
-        private readonly By usernameTextbox = By.CssSelector("#loginUserName");
-        private readonly By passwordTextbox = By.CssSelector("#loginPassword");
-        private readonly By loginButton = By.CssSelector(".btn-primary");
-        private readonly By loginErrorMessage = By.CssSelector("#login-error");
-        private readonly By loingForm = By.CssSelector("#loginForm");
+        private readonly By _usernameTextbox = By.CssSelector("#loginUserName");
+        private readonly By _passwordTextbox = By.CssSelector("#loginPassword");
+        private readonly By _loginButton = By.CssSelector(".btn-primary");
+        private readonly By _loginErrorMessage = By.CssSelector("#login-error");
 
         public LoginPage(IWebDriver driver) : base(driver)
         {
@@ -17,20 +17,20 @@ namespace Jupiter.Tests.Pages
 
         public void Login(string username, string password)
         {
-            Driver.FindElement(usernameTextbox).SendKeys(username);
-            Driver.FindElement(passwordTextbox).SendKeys(password);
-            Driver.FindElement(loginButton).Click();
+            Driver.FindElement(_usernameTextbox).SendKeys(username);
+            Driver.FindElement(_passwordTextbox).SendKeys(password);
+            Driver.FindElement(_loginButton).Click();
         }
 
         public void ValidateLoginSuccessful()
         {
-            Assert.True(!Driver.FindElement(loginErrorMessage).Displayed);
+            Assert.True(Driver.FindElement(_loginErrorMessage).Displayed);
         }
 
         public void ValidateInvalidLogin(string message)
         {
-            Assert.True(Driver.FindElement(loginErrorMessage).Displayed);
-            Assert.True(Driver.FindElement(loginErrorMessage).Text.ToString().Equals(message));
+            Assert.True(Driver.FindElement(_loginErrorMessage).Displayed);
+            Assert.True(Driver.FindElement(_loginErrorMessage).Text.Equals(message));
         }
     }
 }
