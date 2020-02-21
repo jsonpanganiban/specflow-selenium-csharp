@@ -9,6 +9,7 @@ namespace Jupiter.Framework.Base
         Chrome,
         Firefox,
         IE,
-        Edge
+        Edge,
+        Safari
     }
 }

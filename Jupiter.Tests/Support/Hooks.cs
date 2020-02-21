@@ -58,7 +58,7 @@ namespace Jupiter.Tests.Support
         {
             driver = DriverFactory.GetWebDriver(Config.Instance.Browser);
             driver.Manage().Cookies.DeleteAllCookies();
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(15);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
             driver.Manage().Window.Maximize();
             driver.Navigate().GoToUrl(Config.Instance.Url);
 

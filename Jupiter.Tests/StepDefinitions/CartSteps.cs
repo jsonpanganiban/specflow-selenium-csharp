@@ -24,10 +24,10 @@ namespace Jupiter.Tests.StepDefinitions
         [Then(@"Correct price for item is displayed")]
         public void CartShouldDisplayCorrectPriceForItem(Table table)
         {
-            foreach (var item in TableExtensions.GetFirstColumnValues<string>(table))
+            foreach (var rowItem in TableExtensions.GetFirstColumnValues<string>(table))
             {
-                var priceInCart = _cartPage.GetValueBasedOnColumnName(item, CartPage.ItemColumn, CartPage.PriceColumn);
-                Assert.AreEqual(priceInCart, _scenarioContext.GetContextKey(item));
+                var priceInCart = _cartPage.GetCellValue(rowItem, CartPage.ItemColumn, CartPage.PriceColumn);
+                Assert.AreEqual(priceInCart.Text, _scenarioContext.GetContextKey(rowItem));
             }
         }
 
@@ -49,12 +49,12 @@ namespace Jupiter.Tests.StepDefinitions
             var data = table.CreateSet<ProductData>();
             foreach (var product in data)
             {
-                string priceItem = _cartPage.GetValueBasedOnColumnName(product.Item, CartPage.ItemColumn, CartPage.PriceColumn);
-                var priceItemDbl = Convert.ToDouble(StringHelper.RemoveCurrency(priceItem));
+                var priceItem = _cartPage.GetCellValue(product.Item, CartPage.ItemColumn, CartPage.PriceColumn);
+                var priceItemDbl = Convert.ToDouble(StringHelper.RemoveCurrency(priceItem.Text));
                 var priceItemTotal = priceItemDbl * Convert.ToDouble(_scenarioContext.GetContextKey(product.Item));
-                
-                string itemSubtotal = _cartPage.GetValueBasedOnColumnName(product.Item, CartPage.ItemColumn, CartPage.SubtotalColumn);
-                Assert.AreEqual(StringHelper.RemoveCurrency(itemSubtotal), priceItemTotal.ToString());
+
+                var itemSubtotal = _cartPage.GetCellValue(product.Item, CartPage.ItemColumn, CartPage.SubtotalColumn);
+                Assert.AreEqual(StringHelper.RemoveCurrency(itemSubtotal.Text), priceItemTotal.ToString());
             }
         }
 

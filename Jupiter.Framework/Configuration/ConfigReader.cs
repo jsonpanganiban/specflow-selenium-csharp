@@ -15,8 +15,6 @@ namespace Jupiter.Framework.Configuration
         public static readonly string BaseDirectory = AppContext.BaseDirectory
             .Substring(0, AppContext.BaseDirectory.IndexOf("bin", StringComparison.Ordinal));
 
-        //public static readonly Browser BrowserType = Environment.GetEnvironmentVariable("BROWSER")?.GetEnumValueByDescription<Browser>()
-        //                                             ?? Browser.Chrome;
 
         public static void SetConfig()
         {
