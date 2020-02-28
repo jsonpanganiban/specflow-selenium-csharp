@@ -1,6 +1,7 @@
 ﻿using Jupiter.Framework.Extensions;
 using Jupiter.Tests.Pages;
 using TechTalk.SpecFlow;
+using TechTalk.SpecFlow.Assist;
 
 namespace Jupiter.Tests.StepDefinitions
 {
@@ -19,18 +20,20 @@ namespace Jupiter.Tests.StepDefinitions
         [When(@"I capture item price")]
         public void GetTheItemPrice(Table table)
         {
-            foreach (var item in TableExtensions.GetFirstColumnValues<string>(table))
+            var products = table.CreateSet<ProductData>();
+            foreach (var product in products)
             {
-                _scenarioContext.SetContextKey(item, _shopPage.GetPrice(item));
+                _scenarioContext.SetContextKey(product.Item, _shopPage.GetPrice(product.Item));
             }
         }
 
         [When("I buy item")]
         public void WhenISelectItemToCart(Table table)
         {
-            foreach (var item in TableExtensions.GetFirstColumnValues<string>(table))
+            var products = table.CreateSet<ProductData>();
+            foreach (var product in products)
             {
-                _shopPage.Buy(item);
+                _shopPage.Buy(product.Item);
             }
         }
     }

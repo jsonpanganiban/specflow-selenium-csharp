@@ -5,11 +5,11 @@ using System;
 
 namespace Jupiter.Framework.Base
 {
-    public abstract class BasePage
+    public abstract class Base
     {
         public IWebDriver Driver { get; }
 
-        public BasePage(IWebDriver driver)
+        public Base(IWebDriver driver)
         {
             Driver = driver;
         }

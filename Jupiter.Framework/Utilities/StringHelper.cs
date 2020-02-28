@@ -1,5 +1,5 @@
 ﻿using System;
-using System.ComponentModel;
+using System.Text.RegularExpressions;
 
 namespace Jupiter.Framework.Utilities
 {
@@ -7,7 +7,7 @@ namespace Jupiter.Framework.Utilities
     {
         public static String RemoveCurrency(this string value)
         {
-            return value.Replace("$", string.Empty);
+            return Regex.Replace(value, @"[^\d.,]", string.Empty);
         }
     }
 }

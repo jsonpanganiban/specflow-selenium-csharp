@@ -24,10 +24,11 @@ namespace Jupiter.Tests.StepDefinitions
         [Then(@"Correct price for item is displayed")]
         public void CartShouldDisplayCorrectPriceForItem(Table table)
         {
-            foreach (var rowItem in TableExtensions.GetFirstColumnValues<string>(table))
+            var products = table.CreateSet<ProductData>();
+            foreach (var product in products)
             {
-                var priceInCart = _cartPage.GetCellValue(rowItem, CartPage.ItemColumn, CartPage.PriceColumn);
-                Assert.AreEqual(priceInCart.Text, _scenarioContext.GetContextKey(rowItem));
+                var priceInCart = _cartPage.GetPrice(product.Item);
+                Assert.AreEqual(priceInCart, _scenarioContext.GetContextKey(product.Item));
             }
         }
 
@@ -35,8 +36,8 @@ namespace Jupiter.Tests.StepDefinitions
         [When(@"I update quantity of item")]
         public void WhenIUpdateQuantityOfItem(Table table)
         {
-            var data = table.CreateSet<ProductData>();
-            foreach (var product in data)
+            var products = table.CreateSet<ProductData>();
+            foreach (var product in products)
             {
                 _cartPage.UpdateQuantity(product.Item, product.Quantity);
                 _scenarioContext.SetContextKey(product.Item, product.Quantity);
@@ -46,15 +47,14 @@ namespace Jupiter.Tests.StepDefinitions
         [Then(@"Subtotal for each item should be correct")]
         public void ThenSubtotalForItemShouldBeCorrect(Table table)
         {
-            var data = table.CreateSet<ProductData>();
-            foreach (var product in data)
+            var products = table.CreateSet<ProductData>();
+            foreach (var product in products)
             {
-                var priceItem = _cartPage.GetCellValue(product.Item, CartPage.ItemColumn, CartPage.PriceColumn);
-                var priceItemDbl = Convert.ToDouble(StringHelper.RemoveCurrency(priceItem.Text));
+                var priceItem = _cartPage.GetPrice(product.Item);
+                var priceItemDbl = Convert.ToDouble(StringHelper.RemoveCurrency(priceItem));
                 var priceItemTotal = priceItemDbl * Convert.ToDouble(_scenarioContext.GetContextKey(product.Item));
-
-                var itemSubtotal = _cartPage.GetCellValue(product.Item, CartPage.ItemColumn, CartPage.SubtotalColumn);
-                Assert.AreEqual(StringHelper.RemoveCurrency(itemSubtotal.Text), priceItemTotal.ToString());
+                var itemSubtotal = _cartPage.GetItemSubtotal(product.Item);
+                Assert.AreEqual(StringHelper.RemoveCurrency(itemSubtotal), priceItemTotal.ToString());
             }
         }
 

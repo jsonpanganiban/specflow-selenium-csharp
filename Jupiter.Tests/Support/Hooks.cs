@@ -62,7 +62,7 @@ namespace Jupiter.Tests.Support
             driver.Manage().Window.Maximize();
             driver.Navigate().GoToUrl(Config.Instance.Url);
 
-            objectContainer.RegisterInstanceAs(new HomePage(driver));
+            objectContainer.RegisterInstanceAs(new BasePage(driver));
             objectContainer.RegisterInstanceAs(new LoginPage(driver));
             objectContainer.RegisterInstanceAs(new ShopPage(driver));
             objectContainer.RegisterInstanceAs(new CartPage(driver));

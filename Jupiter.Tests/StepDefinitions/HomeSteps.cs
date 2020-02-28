@@ -6,9 +6,9 @@ namespace Jupiter.Tests.StepDefinitions
     [Binding]
     public class HomeSteps
     {
-        private readonly HomePage _homePage;
+        private readonly BasePage _homePage;
 
-        public HomeSteps(HomePage homePage)
+        public HomeSteps(BasePage homePage)
         {
             _homePage = homePage;
         }
