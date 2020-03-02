@@ -7,11 +7,11 @@ namespace Jupiter.Framework.Base
 {
     public abstract class Base
     {
-        public IWebDriver Driver { get; }
+        public IWebDriver WebDriver { get; }
 
         public Base(IWebDriver driver)
         {
-            Driver = driver;
+            WebDriver = driver;
         }
     }
 }

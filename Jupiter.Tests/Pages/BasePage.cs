@@ -15,17 +15,17 @@ namespace Jupiter.Tests.Pages
 
         public void NavigateToLogin()
         {
-            Driver.FindElement(loginLink).Click();
+            WebDriver.FindElement(loginLink).Click();
         }
 
         public void NagivateToShop()
         {
-            Driver.FindElement(shopLink).Click();
+            WebDriver.FindElement(shopLink).Click();
         }
 
         public void NavigateToCart()
         {
-            Driver.FindElement(cartLink).Click();
+            WebDriver.FindElement(cartLink).Click();
         }
     }
 }

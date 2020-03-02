@@ -4,6 +4,7 @@ using AventStack.ExtentReports.Reporter;
 using BoDi;
 using Jupiter.Framework.Configuration;
 using Jupiter.Framework.Factories;
+using Jupiter.Tests.Dialogs;
 using Jupiter.Tests.Pages;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.Extensions;
@@ -63,7 +64,7 @@ namespace Jupiter.Tests.Support
             driver.Navigate().GoToUrl(Config.Instance.Url);
 
             objectContainer.RegisterInstanceAs(new BasePage(driver));
-            objectContainer.RegisterInstanceAs(new LoginPage(driver));
+            objectContainer.RegisterInstanceAs(new LoginDialog(driver));
             objectContainer.RegisterInstanceAs(new ShopPage(driver));
             objectContainer.RegisterInstanceAs(new CartPage(driver));
             objectContainer.RegisterInstanceAs(new CheckoutPage(driver));

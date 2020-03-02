@@ -42,7 +42,7 @@ namespace Jupiter.Tests.Pages
 
         public void ProceedToCheckOut()
         {
-            Driver.FindElement(_checkoutButton).Click();
+            WebDriver.FindElement(_checkoutButton).Click();
         }
 
     }

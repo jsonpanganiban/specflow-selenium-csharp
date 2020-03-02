@@ -22,22 +22,19 @@ namespace Jupiter.Tests.Component
  
         public List<Dictionary<string, IWebElement>> GetTable()
         {
-            var wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(Config.Instance.Timeout));
-            IWebElement tableElement = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.CssSelector(".table")));
+            var wait = new WebDriverWait(WebDriver, TimeSpan.FromSeconds(Config.Instance.Timeout));
+            IWebElement tableElement = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions
+                .ElementIsVisible(By.CssSelector("table.cart-items")));
+
             var productTable = new List<Dictionary<string, IWebElement>>();
 
-            IReadOnlyCollection<IWebElement> headerElems = tableElement.FindElements(By.TagName("th"));
-            var columnHeaders = headerElems.Select(e => e.Text).ToList();
+            var columnHeaders = tableElement.FindElements(By.TagName("th")).Select(e => e.Text).ToList();
 
-            IReadOnlyCollection<IWebElement> rowElements = tableElement.FindElements(By.TagName("tbody>tr"));
-
-            foreach (IWebElement rowElement in rowElements)
+            foreach (IWebElement rowElement in tableElement.FindElements(By.TagName("tbody>tr")))
             {
                 var row = new Dictionary<string, IWebElement>();
-                IReadOnlyCollection<IWebElement> cellElements = rowElement.FindElements(By.TagName("td"));
-
                 int columnIndex = 0;
-                foreach (var cellElem in cellElements)
+                foreach (var cellElem in rowElement.FindElements(By.TagName("td")))
                 {
                     row.Add(columnHeaders[columnIndex], cellElem);
                     columnIndex++;

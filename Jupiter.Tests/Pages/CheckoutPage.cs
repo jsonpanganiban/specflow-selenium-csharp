@@ -25,28 +25,28 @@ namespace Jupiter.Tests.Pages
 
         public void FillOutDeliveryDetails(string forename, string email, string address)
         {
-            Driver.FindElement(_forenameTextBox).SendKeys(forename);
-            Driver.FindElement(_emailTextBox).SendKeys(email);
-            Driver.FindElement(_addressTextBox).SendKeys(address);
+            WebDriver.FindElement(_forenameTextBox).SendKeys(forename);
+            WebDriver.FindElement(_emailTextBox).SendKeys(email);
+            WebDriver.FindElement(_addressTextBox).SendKeys(address);
         }
 
         public void FillOutPaymentDetails(string cartType, string cardNumber)
         {
-            SelectElement selectElement = new SelectElement(Driver.FindElement(_cardTypeDropdown));
+            SelectElement selectElement = new SelectElement(WebDriver.FindElement(_cardTypeDropdown));
             selectElement.SelectByText(cartType);
-            Driver.FindElement(_cardTextBox).SendKeys(cardNumber);
+            WebDriver.FindElement(_cardTextBox).SendKeys(cardNumber);
         }
 
         public void SubmitOrder()
         {
-            Driver.FindElement(_submitButton).Click();
+            WebDriver.FindElement(_submitButton).Click();
         }
 
         public void VerifyOrderIsAccepted(string forename)
         {
-            var wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(Config.Instance.Timeout));
+            var wait = new WebDriverWait(WebDriver, TimeSpan.FromSeconds(Config.Instance.Timeout));
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.InvisibilityOfElementLocated(_progressInfo));
-            Assert.True(Driver.FindElement(_alertSuccessMessage).Text.Contains($"Thanks {forename}, {successText}"));
+            Assert.True(WebDriver.FindElement(_alertSuccessMessage).Text.Contains($"Thanks {forename}, {successText}"));
         }
     }
 }

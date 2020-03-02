@@ -1,17 +1,20 @@
-﻿using Jupiter.Tests.Pages;
+﻿using Jupiter.Tests.Dialogs;
+using Jupiter.Tests.Pages;
+using NUnit.Framework;
+using OpenQA.Selenium;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
 
 namespace Jupiter.Tests.StepDefinitions
 {
     [Binding]
-    public class LoginSteps
+    public class LoginStep
     {
-        private readonly LoginPage _loginPage;
+        private readonly LoginDialog _loginDialog;
 
-        public LoginSteps(LoginPage loginPage)
+        public LoginStep(LoginDialog loginDialog)
         {
-            _loginPage = loginPage;
+            _loginDialog = loginDialog;
         }
 
         [When(@"I enter invalid credentials")]
@@ -19,13 +22,14 @@ namespace Jupiter.Tests.StepDefinitions
         public void WhenIEnterCredentials(Table loginTable)
         {
             var loginData = loginTable.CreateInstance<LoginData>();
-            _loginPage.Login(loginData.Username, loginData.Password);
+            _loginDialog.Login(loginData.Username, loginData.Password);
         }
 
         [Then(@"Message (.*) should be displayed")]
         public void ThenFailureMessageShouldBeDisplayed(string message)
         {
-            _loginPage.ValidateInvalidLogin(message);
+            Assert.True(_loginDialog.GetLoginErrorMessage().Displayed);
+            Assert.True(_loginDialog.GetLoginErrorMessage().Text.Equals(message));
         }
     }
 }
