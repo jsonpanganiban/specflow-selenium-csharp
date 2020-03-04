@@ -5,7 +5,7 @@ using BoDi;
 using Jupiter.Framework.Configuration;
 using Jupiter.Framework.Factories;
 using Jupiter.Tests.Dialogs;
-using Jupiter.Tests.Pages;
+using Jupiter.Tests.Model.Pages;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.Extensions;
 using System;
@@ -63,7 +63,7 @@ namespace Jupiter.Tests.Support
             driver.Manage().Window.Maximize();
             driver.Navigate().GoToUrl(Config.Instance.Url);
 
-            objectContainer.RegisterInstanceAs(new BasePage(driver));
+            objectContainer.RegisterInstanceAs(new HomePage(driver));
             objectContainer.RegisterInstanceAs(new LoginDialog(driver));
             objectContainer.RegisterInstanceAs(new ShopPage(driver));
             objectContainer.RegisterInstanceAs(new CartPage(driver));

@@ -1,7 +1,7 @@
 ﻿using Jupiter.Framework.Base;
 using OpenQA.Selenium;
 
-namespace Jupiter.Tests.Pages
+namespace Jupiter.Tests.Model.Pages
 {
     public class BasePage : Base
     { 

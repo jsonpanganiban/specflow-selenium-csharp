@@ -1,17 +1,20 @@
-﻿using Jupiter.Framework.Configuration;
-using Jupiter.Tests.Pages;
+﻿using Jupiter.Framework.Base;
+using Jupiter.Framework.Configuration;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Jupiter.Tests.Component
+namespace Jupiter.Tests.Model.Tables
 {
-    public class Table : BasePage
+    public class Table
     {
-        public Table(IWebDriver driver) : base(driver)
+        private IWebElement webElement;
+
+        public Table(IWebElement webElement)
         {
+            this.webElement = webElement;
         }
 
         public IWebElement GetCellValue(string rowValue, string findColumn, string returnColumn)
@@ -20,17 +23,12 @@ namespace Jupiter.Tests.Component
             return rowItem[returnColumn];
         }
  
-        public List<Dictionary<string, IWebElement>> GetTable()
+        private List<Dictionary<string, IWebElement>> GetTable()
         {
-            var wait = new WebDriverWait(WebDriver, TimeSpan.FromSeconds(Config.Instance.Timeout));
-            IWebElement tableElement = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions
-                .ElementIsVisible(By.CssSelector("table.cart-items")));
-
             var productTable = new List<Dictionary<string, IWebElement>>();
+            var columnHeaders = webElement.FindElements(By.TagName("th")).Select(e => e.Text).ToList();
 
-            var columnHeaders = tableElement.FindElements(By.TagName("th")).Select(e => e.Text).ToList();
-
-            foreach (IWebElement rowElement in tableElement.FindElements(By.TagName("tbody>tr")))
+            foreach (IWebElement rowElement in webElement.FindElements(By.TagName("tbody>tr")))
             {
                 var row = new Dictionary<string, IWebElement>();
                 int columnIndex = 0;

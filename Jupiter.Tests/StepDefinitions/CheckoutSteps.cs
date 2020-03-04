@@ -1,4 +1,4 @@
-﻿using Jupiter.Tests.Pages;
+﻿using Jupiter.Tests.Model.Pages;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
 

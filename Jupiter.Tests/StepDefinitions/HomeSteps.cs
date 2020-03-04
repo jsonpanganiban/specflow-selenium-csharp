@@ -1,4 +1,4 @@
-﻿using Jupiter.Tests.Pages;
+﻿using Jupiter.Tests.Model.Pages;
 using TechTalk.SpecFlow;
 
 namespace Jupiter.Tests.StepDefinitions
@@ -6,30 +6,30 @@ namespace Jupiter.Tests.StepDefinitions
     [Binding]
     public class HomeSteps
     {
-        private readonly BasePage _basePage;
+        private readonly HomePage _homePage;
 
-        public HomeSteps(BasePage basePage)
+        public HomeSteps(HomePage homePage)
         {
-            _basePage = basePage;
+            _homePage = homePage;
         }
 
         [Given(@"I navigate to Login")]
         public void Login()
         {
-            _basePage.NavigateToLogin();
+            _homePage.NavigateToLogin();
         }
 
         [Given(@"I navigate to Shopping page")]
         [When(@"I navigate to Shopping page")]
         public void WHenINavigateToShoppingPage()
         {
-            _basePage.NagivateToShop();
+            _homePage.NagivateToShop();
         }
 
         [When(@"I navigate to Cart page")]
         public void WhenINavigateToCartPage()
         {
-            _basePage.NavigateToCart();
+            _homePage.NavigateToCart();
         }
     }
 }
