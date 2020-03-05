@@ -29,10 +29,10 @@ namespace Jupiter.Tests.Model.Products
             return webElement.FindElement(_productPriceElem).Text;
         }
 
-        //public void BuyProduct()
-        //{
-        //    webElement.FindElement(_productButtonElem).Click();
-        //}
+        public void ClickBuyProduct()
+        {
+            webElement.FindElement(_productButtonElem).Click();
+        }
 
     }
 }

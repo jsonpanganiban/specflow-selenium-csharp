@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Jupiter.Tests.Pages
+﻿namespace Jupiter.Tests.Pages
 {
     public class LoginData
     {

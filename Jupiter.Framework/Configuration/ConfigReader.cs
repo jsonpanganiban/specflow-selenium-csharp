@@ -1,10 +1,6 @@
-﻿using Jupiter.Framework.Base;
-using Jupiter.Framework.Utilities;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace Jupiter.Framework.Configuration
 {
@@ -14,7 +10,6 @@ namespace Jupiter.Framework.Configuration
 
         public static readonly string BaseDirectory = AppContext.BaseDirectory
             .Substring(0, AppContext.BaseDirectory.IndexOf("bin", StringComparison.Ordinal));
-
 
         public static void SetConfig()
         {

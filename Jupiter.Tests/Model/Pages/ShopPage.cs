@@ -31,10 +31,7 @@ namespace Jupiter.Tests.Model.Pages
 
         private IWebElement GetItemElement(string item)
         {
-            var wait = new WebDriverWait(WebDriver, TimeSpan.FromSeconds(Config.Instance.Timeout));
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(_productScope));
-            IList<IWebElement> productListElems = WebDriver.FindElements(_productScope);
-            return productListElems.Single(i => i.Text.Contains(item));
+            return WebDriver.FindElements(_productScope).Single(i => i.Text.Contains(item));
         }
     }
 }

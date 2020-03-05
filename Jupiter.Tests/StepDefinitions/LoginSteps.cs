@@ -1,7 +1,6 @@
 ﻿using Jupiter.Tests.Dialogs;
 using Jupiter.Tests.Pages;
 using NUnit.Framework;
-using OpenQA.Selenium;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
 

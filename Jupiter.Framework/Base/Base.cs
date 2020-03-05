@@ -1,7 +1,4 @@
-﻿using Jupiter.Framework.Configuration;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
-using System;
+﻿using OpenQA.Selenium;
 
 namespace Jupiter.Framework.Base
 {

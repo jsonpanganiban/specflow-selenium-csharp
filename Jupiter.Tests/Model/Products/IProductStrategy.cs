@@ -7,7 +7,7 @@ namespace Jupiter.Tests.Model.Contracts
 {
     public interface IProductStrategy
     {
-        void Buy(Product product);
-
+        //void Buy(Product product);
+        bool CompareProduct(Product product);
     }
 }

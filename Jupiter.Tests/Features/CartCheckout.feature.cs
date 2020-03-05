@@ -35,8 +35,7 @@ namespace Jupiter.Tests.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Shop", "\tIn order to avoid silly mistakes\r\n\tAs a math idiot\r\n\tI want to be told the sum o" +
-                    "f two numbers", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Shop", null, ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -83,7 +82,7 @@ namespace Jupiter.Tests.Features
                     "mytag"};
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cart Checkout", null, new string[] {
                         "mytag"});
-#line 7
+#line 4
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -103,7 +102,7 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 8
+#line 5
  testRunner.Given("I navigate to Shopping page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
                 TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
@@ -112,7 +111,7 @@ this.ScenarioInitialize(scenarioInfo);
                             "Teddy Bear"});
                 table1.AddRow(new string[] {
                             "Smiley Face"});
-#line 9
+#line 6
  testRunner.When("I buy item", ((string)(null)), table1, "When ");
 #line hidden
                 TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
@@ -121,10 +120,10 @@ this.ScenarioInitialize(scenarioInfo);
                             "Teddy Bear"});
                 table2.AddRow(new string[] {
                             "Smiley Face"});
-#line 13
+#line 10
  testRunner.And("I capture item price", ((string)(null)), table2, "And ");
 #line hidden
-#line 17
+#line 14
  testRunner.And("I navigate to Cart page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
                 TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
@@ -133,7 +132,7 @@ this.ScenarioInitialize(scenarioInfo);
                             "Teddy Bear"});
                 table3.AddRow(new string[] {
                             "Smiley Face"});
-#line 18
+#line 15
  testRunner.Then("Correct price for item is displayed", ((string)(null)), table3, "Then ");
 #line hidden
                 TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
@@ -145,7 +144,7 @@ this.ScenarioInitialize(scenarioInfo);
                 table4.AddRow(new string[] {
                             "Smiley Face",
                             "3"});
-#line 23
+#line 20
  testRunner.When("I update quantity of item", ((string)(null)), table4, "When ");
 #line hidden
                 TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
@@ -154,10 +153,10 @@ this.ScenarioInitialize(scenarioInfo);
                             "Teddy Bear"});
                 table5.AddRow(new string[] {
                             "Smiley Face"});
-#line 27
+#line 24
  testRunner.Then("Subtotal for each item should be correct", ((string)(null)), table5, "Then ");
 #line hidden
-#line 32
+#line 29
  testRunner.Given("I proceed to check out", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
                 TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
@@ -172,13 +171,13 @@ this.ScenarioInitialize(scenarioInfo);
                             "St Kilda",
                             "Visa",
                             "1234 9876 1234 9876"});
-#line 33
+#line 30
  testRunner.When("I fill out delivery and payment details", ((string)(null)), table6, "When ");
 #line hidden
-#line 37
+#line 34
  testRunner.And("I submit order", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 38
+#line 35
  testRunner.Then("Success message should be displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }

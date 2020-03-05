@@ -4,7 +4,7 @@ using System;
 
 namespace Jupiter.Tests.Dialogs
 {
-    public abstract class BaseDialog : Base
+    public class BaseDialog : Base
     {
         private readonly By _submitButton = By.CssSelector(".btn-primary");
 

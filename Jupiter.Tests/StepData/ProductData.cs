@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Jupiter.Tests.StepDefinitions
+﻿namespace Jupiter.Tests.StepDefinitions
 {
     public class ProductData
     {

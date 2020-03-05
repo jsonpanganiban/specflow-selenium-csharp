@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Jupiter.Framework.Configuration
+﻿namespace Jupiter.Framework.Configuration
 {
     public class Config
     {

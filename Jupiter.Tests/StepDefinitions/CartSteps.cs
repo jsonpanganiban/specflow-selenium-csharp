@@ -1,7 +1,6 @@
 ﻿using Jupiter.Framework.Extensions;
 using Jupiter.Framework.Utilities;
 using Jupiter.Tests.Model.Pages;
-using Jupiter.Tests.Pages;
 using NUnit.Framework;
 using System;
 using TechTalk.SpecFlow;

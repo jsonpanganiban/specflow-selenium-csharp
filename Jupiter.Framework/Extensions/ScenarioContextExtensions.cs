@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TechTalk.SpecFlow;
 
 namespace Jupiter.Framework.Extensions

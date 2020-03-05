@@ -1,8 +1,4 @@
-﻿using Jupiter.Framework.Base;
-using Jupiter.Framework.Configuration;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
-using System;
+﻿using OpenQA.Selenium;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -22,7 +18,7 @@ namespace Jupiter.Tests.Model.Tables
             var rowItem = GetTable().Where(r => r[findColumn].Text == rowValue).FirstOrDefault();
             return rowItem[returnColumn];
         }
- 
+
         private List<Dictionary<string, IWebElement>> GetTable()
         {
             var productTable = new List<Dictionary<string, IWebElement>>();

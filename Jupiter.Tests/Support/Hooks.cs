@@ -29,7 +29,6 @@ namespace Jupiter.Tests.Support
         private static readonly string reportFile = string.Concat(reportDir, "\\TestResults\\Report\\ExtentReport.html");
         //private static readonly Browser BrowserType = Config.Instance.Browser;
 
-
         public Hooks(IObjectContainer objectContainer)
         {
             this.objectContainer = objectContainer;
